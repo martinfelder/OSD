@@ -16,12 +16,14 @@ Import-Module OSD -Force
 #   [OS] Params and Start-OSDCloud
 #=======================================================================
 $Params = @{
-    OSBuild = "20H2"
+    OSBuild = "21H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-us"
     ZTI = $true
 }
 Start-OSDCloud @Params
+
+<#
 
 #================================================
 #  [PostOS] OOBEDeploy Configuration
@@ -80,7 +82,7 @@ $AutopilotOOBEJson = @'
     "Assign":  {
                    "IsPresent":  true
                },
-    "GroupTag":  "Mittelschulen",
+    "GroupTag":  "MFLAB",
     "AddToGroup": "sg-GYMKG",
     "AddToGroupOptions":  [
                     "sg-GYMKG",
@@ -129,6 +131,8 @@ RD C:\OSDCloud\OS /S /Q
 RD C:\Drivers /S /Q
 '@
 $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
+#>
+
 
 #=======================================================================
 #   Restart-Computer
