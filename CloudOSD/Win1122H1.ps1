@@ -93,7 +93,7 @@ $AutopilotOOBEJson = @'
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://google.com/",
-    "Title":  "MFLAB AutoPIlot Register"
+    "Title":  "MFLAB AutoPilot Register"
 }
 '@
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
