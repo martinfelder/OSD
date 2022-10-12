@@ -16,6 +16,7 @@ Import-Module OSD -Force
 #   [OS] Params and Start-OSDCloud
 #=======================================================================
 $Params = @{
+    OSVersion = "Windows 11"
     OSBuild = "21H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-us"
@@ -23,7 +24,6 @@ $Params = @{
 }
 Start-OSDCloud @Params
 
-<#
 
 #================================================
 #  [PostOS] OOBEDeploy Configuration
@@ -83,11 +83,6 @@ $AutopilotOOBEJson = @'
                    "IsPresent":  true
                },
     "GroupTag":  "MFLAB",
-    "AddToGroup": "sg-GYMKG",
-    "AddToGroupOptions":  [
-                    "sg-GYMKG",
-                    "sg-GYMWM"
-    ],
     "Hidden":  [
                    "AssignedComputerName",
                    "AssignedUser",
@@ -98,7 +93,7 @@ $AutopilotOOBEJson = @'
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://google.com/",
-    "Title":  "EDUBS PoC Autopilot Register"
+    "Title":  "MFLAB AutoPIlot Register"
 }
 '@
 If (!(Test-Path "C:\ProgramData\OSDeploy")) {
@@ -131,7 +126,7 @@ RD C:\OSDCloud\OS /S /Q
 RD C:\Drivers /S /Q
 '@
 $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
-#>
+
 
 
 #=======================================================================
