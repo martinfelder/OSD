@@ -20,7 +20,7 @@ $Params = @{
     OSBuild = "21H2"
     OSEdition = "Enterprise"
     OSLanguage = "en-us"
-    ZTI = $true
+    ZTI = $false
 }
 Start-OSDCloud @Params
 
