@@ -75,7 +75,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #================================================
 #  [PostOS] AutopilotOOBE Configuration Staging
 #================================================
-<# Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
+<#Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
 $AutopilotOOBEJson = @'
 {
     "Assign":  {
@@ -100,7 +100,7 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
 }
 $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
 
-
+#>
 
 #================================================
 #  [PostOS] AutopilotOOBE CMD Command Line
@@ -109,16 +109,16 @@ Write-Host -ForegroundColor Green "Create C:\Windows\System32\Autopilot.cmd"
 $AutopilotCMD = @'
 PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
 Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
-Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
-Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
+REM Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
+REM Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
 Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Set-KeyboardLanguage.ps1
-Start /Wait PowerShell -NoL -C Start-AutopilotOOBE
+REM Start /Wait PowerShell -NoL -C Start-AutopilotOOBE
 Start /Wait PowerShell -NoL -C Start-OOBEDeploy
+Start /Wait Powershell -NoL -C Invoke-CloudSecret -VaultName MFLABPSCloudScript -Name AutoPilotRegistration
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
 $AutopilotCMD | Out-File -FilePath 'C:\Windows\System32\Autopilot.cmd' -Encoding ascii -Force
 
-#>
 
 #================================================
 #  [PostOS] SetupComplete CMD Command Line
@@ -127,7 +127,6 @@ Write-Host -ForegroundColor Green "Create C:\Windows\Setup\Scripts\SetupComplete
 $SetupCompleteCMD = @'
 # RD C:\OSDCloud\OS /S /Q
 # RD C:\Drivers /S /Q
-Start /Wait Powershell -NoL -C Invoke-CloudSecret -VaultName MFLABPSCloudScript -Name AutoPilotRegistration
 Start /Wait PowerShell -NoL -C Start-OOBEDeploy
 '@
 $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
