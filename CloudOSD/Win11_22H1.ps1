@@ -31,7 +31,7 @@ Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.OOBED
 $OOBEDeployJson = @'
 {
     "Autopilot":  {
-                      "IsPresent":  true
+                      "IsPresent":  false
                   },
     "RemoveAppx":  [
                        "Microsoft.549981C3F5F10",
@@ -75,7 +75,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #================================================
 #  [PostOS] AutopilotOOBE Configuration Staging
 #================================================
-Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
+<# Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
 $AutopilotOOBEJson = @'
 {
     "Assign":  {
@@ -100,6 +100,8 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
 }
 $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
 
+
+
 #================================================
 #  [PostOS] AutopilotOOBE CMD Command Line
 #================================================
@@ -116,6 +118,8 @@ Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
 $AutopilotCMD | Out-File -FilePath 'C:\Windows\System32\Autopilot.cmd' -Encoding ascii -Force
 
+#>
+
 #================================================
 #  [PostOS] SetupComplete CMD Command Line
 #================================================
@@ -123,6 +127,7 @@ Write-Host -ForegroundColor Green "Create C:\Windows\Setup\Scripts\SetupComplete
 $SetupCompleteCMD = @'
 # RD C:\OSDCloud\OS /S /Q
 # RD C:\Drivers /S /Q
+Start /Wait Powershell -NoL -C Invoke-CloudSecret -VaultName MFLABPSCloudScript -Name AutoPilotRegistration
 '@
 $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
 
