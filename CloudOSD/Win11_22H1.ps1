@@ -128,6 +128,7 @@ $SetupCompleteCMD = @'
 # RD C:\OSDCloud\OS /S /Q
 # RD C:\Drivers /S /Q
 Start /Wait Powershell -NoL -C Invoke-CloudSecret -VaultName MFLABPSCloudScript -Name AutoPilotRegistration
+Start /Wait PowerShell -NoL -C Start-OOBEDeploy
 '@
 $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
 
