@@ -17,8 +17,8 @@ Import-Module OSD -Force
 #=======================================================================
 $Params = @{
     OSVersion = "Windows 11"
-    OSBuild = "22H2"
-    OSEdition = "Enterprise"
+    OSBuild = "23H2"
+    OSEdition = "Pro"
     OSLanguage = "en-us"
     ZTI = $false
 }
@@ -71,54 +71,6 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
     New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
 }
 $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeploy.json" -Encoding ascii -Force
-
-#================================================
-#  [PostOS] AutopilotOOBE Configuration Staging
-#================================================
-<#Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json"
-$AutopilotOOBEJson = @'
-{
-    "Assign":  {
-                   "IsPresent":  true
-               },
-    "GroupTag":  "MFLAB",
-    "Hidden":  [
-                   "AssignedComputerName",
-                   "AssignedUser",
-                   "PostAction",
-                   "GroupTag",
-                   "Assign"
-               ],
-    "PostAction":  "Quit",
-    "Run":  "NetworkingWireless",
-    "Docs":  "https://google.com/",
-    "Title":  "MFLAB AutoPilot Register"
-}
-'@
-If (!(Test-Path "C:\ProgramData\OSDeploy")) {
-    New-Item "C:\ProgramData\OSDeploy" -ItemType Directory -Force | Out-Null
-}
-$AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
-
-#>
-
-#================================================
-#  [PostOS] AutopilotOOBE CMD Command Line
-#================================================
-Write-Host -ForegroundColor Green "Create C:\Windows\System32\Autopilot.cmd"
-$AutopilotCMD = @'
-PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
-Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
-REM Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
-REM Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
-Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Set-KeyboardLanguage.ps1
-REM Start /Wait PowerShell -NoL -C Start-AutopilotOOBE
-Start /Wait PowerShell -NoL -C Start-OOBEDeploy
-Start /Wait Powershell -NoL -C Invoke-CloudSecret -VaultName MFLABPSCloudScript -Name AutoPilotRegistration
-Start /Wait PowerShell -NoL -C Restart-Computer -Force
-'@
-$AutopilotCMD | Out-File -FilePath 'C:\Windows\System32\Autopilot.cmd' -Encoding ascii -Force
-
 
 #================================================
 #  [PostOS] SetupComplete CMD Command Line
