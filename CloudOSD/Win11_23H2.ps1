@@ -86,7 +86,7 @@ $OOBEDeployJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.OOBEDeplo
 #================================================
 Write-Host -ForegroundColor Green "Define Computername:"
 $Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
-$TargetComputername = $Serial.Substring(4,3)
+$TargetComputername = $Serial.Substring(0,4)
 
 $AssignedComputerName = "VM-$TargetComputername"
 Write-Host -ForegroundColor Red $AssignedComputerName
