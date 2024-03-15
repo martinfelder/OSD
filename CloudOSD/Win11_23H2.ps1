@@ -153,5 +153,5 @@ $SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.c
 #   Restart-Computer
 #=======================================================================
 Write-Host  -ForegroundColor Green "Restarting in 20 seconds!"
-Start-Sleep -Seconds 20
+Start-Sleep -Seconds 3600
 wpeutil reboot
