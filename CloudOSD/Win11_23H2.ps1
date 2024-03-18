@@ -101,8 +101,6 @@ $AutopilotOOBEJson = @"
                    "IsPresent":  true
                },
     "GroupTag":  "LAB",
-    "Hidden":  [
-               ],
     "PostAction":  "Quit",
     "Run":  "NetworkingWireless",
     "Docs":  "https://google.com/",
