@@ -122,20 +122,14 @@ PowerShell -NoL -Com Set-ExecutionPolicy RemoteSigned -Force
 Set Path = %PATH%;C:\Program Files\WindowsPowerShell\Scripts
 Start /Wait PowerShell -NoL -C Install-Module AutopilotOOBE -Force -Verbose
 Start /Wait PowerShell -NoL -C Install-Module OSD -Force -Verbose
-Start /Wait PowerShell -NoL -C Start-AutopilotOOBE
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Scripts/Set-KeyboardLanguage.ps1
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Scripts/AP-Prereq.ps1
 Start /Wait PowerShell -NoL -C Start-OOBEDeploy
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Scripts/TPM.ps1
+Start /Wait PowerShell -NoL -C Invoke-WebPSScript https://raw.githubusercontent.com/martinfelder/OSD/main/CloudOSD/Scripts/CleanUp.ps1
 Start /Wait PowerShell -NoL -C Restart-Computer -Force
 '@
 $OOBECMD | Out-File -FilePath 'C:\Windows\System32\OOBE.cmd' -Encoding ascii -Force
-
-#================================================
-#  [PostOS] SetupComplete CMD Command Line
-#================================================
-Write-Host -ForegroundColor Green "Create C:\Windows\Setup\Scripts\SetupComplete.cmd"
-$SetupCompleteCMD = @'
-powershell.exe -Command Set-ExecutionPolicy RemoteSigned -Force
-'@
-$SetupCompleteCMD | Out-File -FilePath 'C:\Windows\Setup\Scripts\SetupComplete.cmd' -Encoding ascii -Force
 
 #=======================================================================
 #   Restart-Computer
