@@ -96,7 +96,7 @@ Write-Host -ForegroundColor Green "Create C:\ProgramData\OSDeploy\OSDeploy.Autop
 $AutopilotOOBEJson = @"
 {
     "AssignedComputerName" : "$AssignedComputerName",
-    "AddToGroup":  "sg-MDM-Production",
+    "AddToGroup":  "",
     "Assign":  {
                    "IsPresent":  true
                },
