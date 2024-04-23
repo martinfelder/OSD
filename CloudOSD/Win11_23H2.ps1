@@ -72,7 +72,7 @@ $OOBEDeployJson = @'
                           "IsPresent":  true
                       },
     "UpdateWindows":  {
-                          "IsPresent":  false
+                          "IsPresent":  true
                       }
 }
 '@
