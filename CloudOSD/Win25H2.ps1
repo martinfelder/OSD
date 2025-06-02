@@ -150,7 +150,7 @@ Write-SectionHeader "[OS] Params and Start-OSDCloud"
 $Params = @{
     OSVersion   = "Windows 11"
     OSBuild     = "24H2"
-    OSEdition   = "Pro"
+    OSEdition   = "Enterprise"
     OSLanguage  = "en-us"
     OSLicense   = "Retail"
     ZTI         = $true
@@ -167,7 +167,7 @@ Write-SectionHeader "[PostOS] Define Autopilot Attributes"
 Write-DarkGrayHost "Define Computername"
 $Serial = Get-WmiObject Win32_bios | Select-Object -ExpandProperty SerialNumber
 $lastFourChars = $serial.Substring($serial.Length - 4)
-#$AssignedComputerName = "NB-2$lastFourChars"
+#$AssignedComputerName = "VM-2$lastFourChars"
 
 $ChassisType = (Get-WmiObject -Query "SELECT * FROM Win32_SystemEnclosure").ChassisTypes
 $HyperV = Get-WmiObject -Query "SELECT * FROM Win32_ComputerSystem WHERE Manufacturer LIKE '%Microsoft Corporation%' AND Model LIKE '%Virtual Machine%'"
