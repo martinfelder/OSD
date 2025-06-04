@@ -220,6 +220,8 @@ else {
 Write-Host -ForegroundColor Yellow "Computername: $AssignedComputerName"
 Write-Host -ForegroundColor Yellow "AddToGroup: $AddToGroup"
 
+Start-Sleep
+
 #================================================
 Write-SectionHeader "[PostOS] AutopilotOOBE Configuration"
 #================================================
@@ -251,6 +253,8 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
 }
 $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
 #endregion
+
+Start-Sleep
 
 #region Specialize Tasks
 #================================================
@@ -300,6 +304,8 @@ $UnattendXml | Out-File -FilePath $UnattendPath -Encoding utf8 -Width 2000 -Forc
 Write-DarkGrayHost "Use-WindowsUnattend -Path 'C:\' -UnattendPath $UnattendPath"
 Use-WindowsUnattend -Path 'C:\' -UnattendPath $UnattendPath | Out-Null
 #endregion
+
+start-sleep
 
 #region OOBE Tasks
 #================================================
@@ -372,7 +378,7 @@ Get-ChildItem -Path X:\OSDCloud\Logs\ | Copy-Item -Destination 'C:\ProgramData\M
 
 if ($Global:WPNinjaCH.Development -eq $false){
     Write-DarkGrayHost "Restarting in 20 seconds!"
-    Start-Sleep -Seconds 20
+    Start-Sleep -Seconds 3600
 
     wpeutil reboot
 
