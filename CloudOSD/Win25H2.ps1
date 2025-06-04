@@ -200,6 +200,10 @@ elseif ($ChassisType -eq "3" -or`
     $HW = "PC"
 }
 
+If ($HyperV -eq $true -and $ChassisType -eq "3") {
+    $HW = "VM"
+}
+
 If (!($HW)) {
     $AssignedComputerName = "RENAME_ME$Serial"
 }
