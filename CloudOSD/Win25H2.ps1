@@ -319,7 +319,7 @@ Write-DarkGrayHost "Downloading Scripts for OOBE and specialize phase"
 
 Invoke-RestMethod https://raw.githubusercontent.com/martinfelder/OSD/refs/heads/main/CloudOSD/Autopilot.ps1| Out-File -FilePath 'C:\Windows\Setup\scripts\autopilot.ps1' -Encoding ascii -Force
 Invoke-RestMethod http://oobe.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\oobe.ps1' -Encoding ascii -Force
-Invoke-RestMethod http://cleanup.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\cleanup.ps1' -Encoding ascii -Force
+# Invoke-RestMethod http://cleanup.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\cleanup.ps1' -Encoding ascii -Force
 #Invoke-RestMethod http://osdgather.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\osdgather.ps1' -Encoding ascii -Force
 
 $OOBEcmdTasks = @'
