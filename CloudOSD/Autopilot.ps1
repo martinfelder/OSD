@@ -214,6 +214,7 @@ Function CustomWindowsAutopilotInfo {
 				Write-Host "Connected to Intune tenant " -NoNewline
 				Write-Host "$TenantId " -ForegroundColor Yellow -NoNewline
 				Write-Host "using cert-based authentication"
+
 			}
 			else {
 				# Comment this scope based call, due to 120sec timeout issue
@@ -222,6 +223,10 @@ Function CustomWindowsAutopilotInfo {
 				$graph = Get-MgContext
 				Write-Host "Connected to Intune tenant" $graph.TenantId
 			}
+			
+			Start-Sleep
+			Start-Process powershell.exe
+
 
 			# Force the output to a file
 			if ($OutputFile -eq "") {
@@ -342,6 +347,10 @@ Function CustomWindowsAutopilotInfo {
 				$computers | Select-Object "Device Serial Number", "Windows Product ID", "Hardware Hash" | ConvertTo-Csv -NoTypeInformation | ForEach-Object { $_ -replace '"', '' } | Out-File $OutputFile
 			}
 		}
+
+		Start-Sleep
+		Start-Process powershell.exe
+
 		if ($Online) {
 			# Add the devices
 			$importStart = Get-Date
@@ -496,9 +505,6 @@ $Params = @{
 	AppID                = "YYYYYYYY"
 }
 
-Start-Sleep
-Start-Process powershell.exe
-
 # Comment out after testing
 # Write-Host ($Params | Out-String)
 Write-Host -ForegroundColor Yellow "ComputerName: $($ImportAutopilotOOBE.AssignedComputerName)"
@@ -508,8 +514,8 @@ Write-SectionHeader "Executing CustomWindowsAutopilotInfo"
 Start-Sleep -Seconds 3
 CustomWindowsAutopilotInfo @Params
 
-Start-Sleep
 Start-Process powershell.exe
+Start-Sleep
 
 Write-SectionHeader "Disconnect Graph API"
 Disconnect-MgGraph | Out-Null
