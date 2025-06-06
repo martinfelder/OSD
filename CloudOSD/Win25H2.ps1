@@ -200,7 +200,7 @@ elseif ($ChassisType -eq "3" -or`
     $HW = "PC"
 }
 
-If ($HyperV -eq $true -and $ChassisType -eq "3") {
+If ($HW -eq 'VM' -and $ChassisType -eq "3") {
     $HW = "VM"
 }
 
@@ -223,8 +223,6 @@ else {
 
 Write-Host -ForegroundColor Yellow "Computername: $AssignedComputerName"
 Write-Host -ForegroundColor Yellow "AddToGroup: $AddToGroup"
-
-Start-Sleep
 
 #================================================
 Write-SectionHeader "[PostOS] AutopilotOOBE Configuration"
@@ -257,8 +255,6 @@ If (!(Test-Path "C:\ProgramData\OSDeploy")) {
 }
 $AutopilotOOBEJson | Out-File -FilePath "C:\ProgramData\OSDeploy\OSDeploy.AutopilotOOBE.json" -Encoding ascii -Force
 #endregion
-
-Start-Sleep
 
 #region Specialize Tasks
 #================================================
@@ -317,9 +313,9 @@ Write-SectionHeader "[PostOS] OOBE CMD Command Line"
 #================================================
 Write-DarkGrayHost "Downloading Scripts for OOBE and specialize phase"
 
-Invoke-RestMethod https://raw.githubusercontent.com/martinfelder/OSD/refs/heads/main/CloudOSD/Autopilot.ps1| Out-File -FilePath 'C:\Windows\Setup\scripts\autopilot.ps1' -Encoding ascii -Force
+#Invoke-RestMethod  | Out-File -FilePath 'C:\Windows\Setup\scripts\autopilot.ps1' -Encoding ascii -Force
 Invoke-RestMethod http://oobe.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\oobe.ps1' -Encoding ascii -Force
-# Invoke-RestMethod http://cleanup.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\cleanup.ps1' -Encoding ascii -Force
+Invoke-RestMethod http://cleanup.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\cleanup.ps1' -Encoding ascii -Force
 #Invoke-RestMethod http://osdgather.osdcloud.ch | Out-File -FilePath 'C:\Windows\Setup\scripts\osdgather.ps1' -Encoding ascii -Force
 
 $OOBEcmdTasks = @'
@@ -382,7 +378,7 @@ Get-ChildItem -Path X:\OSDCloud\Logs\ | Copy-Item -Destination 'C:\ProgramData\M
 
 if ($Global:WPNinjaCH.Development -eq $false){
     Write-DarkGrayHost "Restarting in 20 seconds!"
-    Start-Sleep
+    Start-Sleep -Seconds 20
 
     wpeutil reboot
 
