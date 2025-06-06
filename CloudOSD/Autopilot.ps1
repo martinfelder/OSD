@@ -508,6 +508,9 @@ Write-SectionHeader "Executing CustomWindowsAutopilotInfo"
 Start-Sleep -Seconds 3
 CustomWindowsAutopilotInfo @Params
 
+Start-Sleep
+Start-Process powershell.exe
+
 Write-SectionHeader "Disconnect Graph API"
 Disconnect-MgGraph | Out-Null
 
@@ -516,6 +519,9 @@ Write-DarkGrayHost "Delete certificate from local machine store"
 $subjectName = "OSDCloudRegistration"
 $cert = (Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object { $_.Subject -Match "$subjectName" }).Thumbprint
 Remove-Item -Path Cert:\LocalMachine\My\$cert -Force
+
+Start-Sleep
+Start-Process powershell.exe
 
 Write-DarkGrayHost "Remove Import-Certificagte.ps1 script"
 if (Test-Path -Path $env:SystemDrive\OSDCloud\Scripts\Import-Certificate.ps1) {
