@@ -305,8 +305,6 @@ Write-DarkGrayHost "Use-WindowsUnattend -Path 'C:\' -UnattendPath $UnattendPath"
 Use-WindowsUnattend -Path 'C:\' -UnattendPath $UnattendPath | Out-Null
 #endregion
 
-start-sleep
-
 #region OOBE Tasks
 #================================================
 Write-SectionHeader "[PostOS] OOBE CMD Command Line"
