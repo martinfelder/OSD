@@ -223,9 +223,6 @@ Function CustomWindowsAutopilotInfo {
 				$graph = Get-MgContext
 				Write-Host "Connected to Intune tenant" $graph.TenantId
 			}
-			
-			Start-Sleep
-			Start-Process powershell.exe
 
 
 			# Force the output to a file
