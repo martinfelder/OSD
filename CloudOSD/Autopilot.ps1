@@ -348,9 +348,6 @@ Function CustomWindowsAutopilotInfo {
 			}
 		}
 
-		Start-Sleep
-		Start-Process powershell.exe
-
 		if ($Online) {
 			# Add the devices
 			$importStart = Get-Date
@@ -478,9 +475,6 @@ Write-SectionHeader "Certificate Tasks"
 Write-DarkGrayHost "Importing PFX certificate"
 PowerShell -ExecutionPolicy Bypass C:\OSDCloud\Scripts\Import-Certificate.ps1 -WindowStyle Hidden | Out-Null
 
-Start-Sleep
-Start-Process powershell.exe
-
 Write-DarkGrayHost "Grabbing PFX certificate infos"
 $subjectName = "OSDCloudRegistration"
 $cert = Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object { $_.Subject -Match "$subjectName" }
@@ -514,9 +508,6 @@ Write-SectionHeader "Executing CustomWindowsAutopilotInfo"
 Start-Sleep -Seconds 3
 CustomWindowsAutopilotInfo @Params
 
-Start-Process powershell.exe
-Start-Sleep
-
 Write-SectionHeader "Disconnect Graph API"
 Disconnect-MgGraph | Out-Null
 
@@ -525,9 +516,6 @@ Write-DarkGrayHost "Delete certificate from local machine store"
 $subjectName = "OSDCloudRegistration"
 $cert = (Get-ChildItem -Path "Cert:\LocalMachine\My" | Where-Object { $_.Subject -Match "$subjectName" }).Thumbprint
 Remove-Item -Path Cert:\LocalMachine\My\$cert -Force
-
-Start-Sleep
-Start-Process powershell.exe
 
 Write-DarkGrayHost "Remove Import-Certificagte.ps1 script"
 if (Test-Path -Path $env:SystemDrive\OSDCloud\Scripts\Import-Certificate.ps1) {
