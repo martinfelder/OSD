@@ -32,7 +32,7 @@ param (
 # Schleife zum Erstellen der VMs
 for ($i = $StartIndex; $i -le ($StartIndex + $AnzahlVMs - 1); $i++) {
     $VMName = "$VMNamePrefix" + "00$i"
-    New-VM -Name $VMName -BootDevice VHD -NewVHDPath "$VHDPath\$VMName\$VMName.vhdx" -Path "$VHDPath\$VMName" -NewVHDSizeBytes 120GB -Generation 2 -SwitchName $SwitchName
+    New-VM -Name $VMName -BootDevice VHD -NewVHDPath "$VHDPath\$VMName\$VMName.vhdx" -Path "$VHDPath\$VMName" -NewVHDSizeBytes ($VHDSizeInGB * 1GB) -Generation 2 -SwitchName $SwitchName
     Set-VM -VMName $VMName -ProcessorCount $VMCPUCount -AutomaticCheckpointsEnabled $false -CheckpointType Disabled
     Set-VMMemory -VMName $VMName -StartupBytes ($RAMInMB * 1GB) -MinimumBytes 512MB -MaximumBytes 1048576MB -DynamicMemoryEnabled $true
     Set-VMSecurity -VMName $VMName -VirtualizationBasedSecurityOptOut $false
